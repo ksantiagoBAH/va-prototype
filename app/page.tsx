@@ -1,22 +1,26 @@
 'use client';
 import Records from '@/components/Records';
+import Champva from '@/components/Champva';
+import ProfileCard from '@/components/ProfileCard';
 import PublicHome from '@/components/PublicHome';
 import { useRef, useState } from 'react';
 import AlternateLayouts from '@/components/AlternateLayouts';
 import Updates from '@/components/Updates';
 import { Bell, Search, ChevronDown, ChevronRight, Phone, FileText, CalendarDays, Mail, Link as LinkIcon, Pill, UserRound, Settings, ShieldCheck, CircleDollarSign, X, Menu, CheckCircle2, Upload, ExternalLink } from 'lucide-react';
 import { veterans, claim, appointment, messages } from '@/lib/mock-data';
-const services = ['Refill prescriptions', 'View VA letters', 'Manage appointments', 'Track claims'];
-const serviceIcons = [Pill, FileText, CalendarDays, FileText];
+const services = ['Refill prescriptions', 'View VA letters', 'Manage appointments', 'Track claims', 'CHAMPVA'];
+const serviceIcons = [Pill, FileText, CalendarDays, FileText, ShieldCheck];
 export default function Home() {
  const [signedIn, setSignedIn] = useState(false);
+ const [champva, setChampva] = useState(false);
  const [travelSubmitted, setTravelSubmitted] = useState(false);
  const [layout, setLayout] = useState(1);
  const veteran = veterans[layout - 1];
  const dialog = useRef<HTMLDialogElement>(null);
  const [panel, setPanel] = useState(''); const [query, setQuery] = useState(''); const [mobile, setMobile] = useState(false); const [file, setFile] = useState(''); const [uploaded, setUploaded] = useState(false); const [read, setRead] = useState(false);
- function open(title: string) { setPanel(title); dialog.current?.showModal(); if(title === 'Your messages') setRead(true); }
+ function open(title: string) { if(title === 'CHAMPVA'){setChampva(true);window.scrollTo(0,0);return;} setPanel(title); dialog.current?.showModal(); if(title === 'Your messages') setRead(true); }
  const action = (label: string, title = label) => <button className="text-link" onClick={() => open(title)}>{label}<ChevronRight size={18}/></button>;
+ if (signedIn && champva) return <Champva key={layout} layout={layout} onLayout={setLayout} onBack={()=>{setChampva(false);window.scrollTo(0,0)}}/>;
  if (!signedIn) return <PublicHome layout={layout} onLayout={setLayout} onSignIn={()=>{setSignedIn(true);window.scrollTo(0,0)}}/>;
  return <div className={`layout-version layout-version-${layout}`}>
  <a className="skip-link" href="#main">Skip to main content</a>
@@ -25,7 +29,7 @@ export default function Home() {
  <div className="prototype"><div className="layout-picker" role="group" aria-label="Choose homepage layout">{[1,2,3].map(n=><button key={n} aria-pressed={layout===n} aria-label={`Layout ${n}: ${['Refined VA','Action first','Personal overview'][n-1]}`} onClick={()=>{setLayout(n);setMobile(false);setFile('');setUploaded(false);setRead(false);setTravelSubmitted(false)}}>{n}</button>)}</div><span className="layout-name">{['Refined VA','Action first','Personal overview'][layout-1]}</span><button className="demo-signout" onClick={()=>{setSignedIn(false);setMobile(false);window.scrollTo(0,0)}}>Return to public homepage</button><span className="prototype-dot"/> DESIGN PREVIEW <span className="prototype-note">Fictional sample data · Not an official VA website</span></div>
  <div className="crisis-bar"><div><a href="https://www.veteranscrisisline.net/" target="_blank" rel="noreferrer"><Phone size={15}/>Veterans Crisis Line: 988 then press 1<ExternalLink size={12}/></a></div></div>
  {layout === 1 ? <main id="main" className="page"><div className="breadcrumb">My VA</div><div className="dashboard"><div className="main-column"><div className="welcome-profile-row"><section className="welcome"><p className="eyebrow">YOUR PERSONAL VA HOME</p><h1>Welcome back, {veteran.firstName}</h1><p>Here’s what’s happening with your VA benefits, health care, and more.</p></section>
-<section className="side-card profile-card"><div className="service-banner" style={{background: veteran.bannerColor}}><img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/${veteran.emblem}`} alt={`${veteran.branch} emblem`} width="56" height="56"/><span>UNITED STATES<br/><strong>{veteran.branchLabel}</strong></span></div><div className="profile"><span className="avatar">{veteran.initials}</span><div><h2>{veteran.name}</h2><p>{veteran.service}</p><p className="service-years">{veteran.serviceYears}</p></div></div><div className="profile-links">{[[UserRound,'View and edit your profile','Your profile'],[Settings,'Account settings','Account settings'],[ShieldCheck,'Security and sign-in','Security and sign-in']].map(([Icon,label,title]) => {const I=Icon as typeof UserRound;return <button key={String(label)} onClick={()=>open(String(title))}><I size={21}/><span>{String(label)}</span><ChevronRight size={17}/></button>})}</div></section></div>
+<ProfileCard veteran={veteran}/></div>
  <Updates open={open} uploaded={uploaded} file={file} travelSubmitted={travelSubmitted}/>
  <div className="activity"><section><div className="section-heading"><h2>Your claims and appeals</h2><span>1 active claim</span></div><div className="activity-body"><FileText className="section-icon" size={35}/><div className="activity-content"><div className="row-title"><h3>{claim.title}</h3>{action('View claim details','Claim details')}</div><p className="metadata">Claim received {claim.received}<span className="divider">|</span>Claim number: {claim.number}</p><span className="status">Step {claim.step} of {claim.totalSteps} — {claim.status}</span><p className="jurisdiction">Temporary jurisdiction: <strong>{claim.temporaryJurisdiction}</strong></p><p className="description">We’re reviewing your evidence. We’ll let you know if we need anything else.</p></div></div></section>
  <section><div className="section-heading"><h2>Your health care</h2></div><div className="activity-body"><CalendarDays className="section-icon" size={35}/><div className="activity-content"><div className="row-title"><span className="subheading">Next appointment</span>{action('View appointment details','Appointment details')}</div><h3 className="date">{appointment.date}</h3><div className="appointment-bottom"><div><strong>{appointment.type}</strong><p>{appointment.time}</p><p className="metadata">{appointment.location}</p></div><button className="secondary" onClick={()=>open('Manage appointments')}>Manage appointments</button></div></div></div></section>
