@@ -9,3 +9,12 @@ export const veterans = [
  {name:'Maya Thompson', firstName:'Maya', initials:'MT', service:'U.S. Space Force Veteran', branch:'U.S. Space Force', branchLabel:'SPACE FORCE', serviceYears:'2020 – 2025', disabilityRating:'30%', lastPayment:'$550.00', paymentDate:'October 1, 2026', emblem:'space-force-emblem.png', bannerColor:'#172336', gender:'female', ethnicity:'non-specified'},
  {name:'Carlos Rivera', firstName:'Carlos', initials:'CR', service:'U.S. Army Veteran', branch:'U.S. Army', branchLabel:'ARMY', serviceYears:'2006 – 2014', disabilityRating:'50%', lastPayment:'$1,100.00', paymentDate:'October 1, 2026', emblem:'army-emblem.png', bannerColor:'#283d2d', gender:'male', ethnicity:'Hispanic'},
 ];
+
+// Fictional education account for the selected veteran demo; not a benefit calculation.
+export const educationBenefits = {
+ program: 'Post-9/11 GI Bill (Chapter 33)', remaining: '18 months, 12 days',
+ school: 'Example State University', course: 'Information systems',
+ term: 'August 24–December 18, 2026', verificationMonth: 'September 2026',
+ verificationDates: 'September 1–30, 2026', credits: '12 credit hours',
+ reference: 'DEMO-EDU-CR-401', lastPayment: '$1,250.00', paymentDate: 'September 1, 2026',
+};

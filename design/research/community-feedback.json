@@ -1,0 +1,208 @@
+{
+  "reviewed_on": "2026-10-07",
+  "scope": "Qualitative desk research for the existing layout-3 Veteran, Dependent, and Representative prototype.",
+  "method": "Purposive review of relevant Reddit discussions, public comments on VA News articles, and a VA digital-services research issue. Official sources verify program terminology, support routes, and instruction links. Comments are observations of reported experiences, not operational facts. No commenters were contacted and no personal details were copied into sample personas.",
+  "limitations": [
+    "This is a small self-selected sample, not a representative survey or prevalence estimate.",
+    "Older experiences may not describe current services.",
+    "Representative-specific evidence is thinner: the clearest direct signal is a self-identified VSO\u2019s public comment.",
+    "The implementation demonstrates interface responses, not faster adjudication, real delivery of files, legal authorization, or notification integrations."
+  ],
+  "sources": [
+    {
+      "id": "R1",
+      "kind": "Reddit thread and replies",
+      "url": "https://www.reddit.com/r/VeteransBenefits/comments/1vwce1q/va_claim/",
+      "published": "2026-08-23",
+      "observation": "People reported that claim documents temporarily disappeared and asked whether to upload them again. Replies described documents reappearing. The cause is not independently established here."
+    },
+    {
+      "id": "R2",
+      "kind": "Reddit first-person report",
+      "url": "https://www.reddit.com/r/VeteransBenefits/comments/1u1ix7p/struggling_with_champva_school_enrollment/",
+      "published": "2026-06-09",
+      "observation": "An adult dependent described conflicting answers about whether school certification had arrived and uncertainty about certification timing."
+    },
+    {
+      "id": "R3",
+      "kind": "Reddit first-person report",
+      "url": "https://www.reddit.com/r/VeteransBenefits/comments/1ql5egt/champva_headaches/",
+      "published": "2026-01-23",
+      "observation": "A household described discovering CHAMPVA claim denials by phone, unclear missing billing information, and long waits for explanations."
+    },
+    {
+      "id": "R4",
+      "kind": "Reddit thread and replies",
+      "url": "https://www.reddit.com/r/VeteransBenefits/comments/1cyhiop/",
+      "published": "2024-05-23",
+      "observation": "Commenters requested consistent claim information, clearer progress, and easier access to submissions and supporting documents."
+    },
+    {
+      "id": "W1",
+      "kind": "Public VA News comments",
+      "url": "https://news.va.gov/145318/introducing-the-claim-assist-portal/",
+      "published": "2026-03-04",
+      "observation": "Comments reported hard-to-find or unusable portal links and difficulty with authentication. A self-identified accredited VSO asked whether representatives would receive the same requests as their clients and raised concerns about digital-only access. These are commenter concerns, not confirmed descriptions of current portal functionality."
+    },
+    {
+      "id": "W2",
+      "kind": "Public VA News comments",
+      "url": "https://news.va.gov/140387/save-time-filing-your-champva-claim-online/",
+      "published": "2025-05-29",
+      "observation": "A commenter described inconsistent directions about mailed versus online CHAMPVA paperwork and unsuccessful attempts to resolve the issue across contact channels. Individual claims were not independently verified."
+    },
+    {
+      "id": "P1",
+      "kind": "VA digital-services research issue",
+      "url": "https://github.com/department-of-veterans-affairs/va.gov-team/issues/130790",
+      "published": "2026-01-23",
+      "observation": "The issue records research participants finding similar benefit-letter names confusing and having to open letters to understand their purpose."
+    },
+    {
+      "id": "P2",
+      "kind": "Official current program instructions",
+      "url": "https://www.va.gov/COMMUNITYCARE/docs/pubfiles/forms/CHAMPVA-School-Enrollment.pdf",
+      "published": "2026-04-06",
+      "observation": "Official school enrollment certification instructions used for the program link. Older search results contain different mailing details, so this prototype links to current instructions rather than copying an address."
+    },
+    {
+      "id": "P3",
+      "kind": "Official support information",
+      "url": "https://www.va.gov/resources/support-for-common-logingov-and-idme-issues/",
+      "observation": "Official sign-in support information used to verify the VA.gov technical-support number and the Ask VA route."
+    },
+    {
+      "id": "P4",
+      "kind": "Official program support information",
+      "url": "https://news.va.gov/140387/save-time-filing-your-champva-claim-online/",
+      "observation": "The article provides CHAMPVA claim-document descriptions, the CHAMPVA support number, and an Ask VA link. Article content is separate from public comments."
+    },
+    {
+      "id": "R5",
+      "kind": "Reddit first-person question",
+      "url": "https://www.reddit.com/r/Veterans/comments/1t1baae/how_to_understand_remaining_post911_gi_bill/",
+      "published": "2026-05-02",
+      "observation": "A veteran was unsure how a months-and-days entitlement balance translated into credits or part-time study. The question is used as a clarity signal, not as a source for entitlement rules."
+    },
+    {
+      "id": "R6",
+      "kind": "Reddit first-person question",
+      "url": "https://www.reddit.com/r/Veterans/comments/1jen1wi/",
+      "observation": "A veteran described confusion about GI Bill payments. Replies discussed distinctions between payment types. Reply advice is not used as authoritative payment guidance."
+    },
+    {
+      "id": "P5",
+      "kind": "Official education and verification resources",
+      "url": "https://www.va.gov/education/verify-school-enrollment/",
+      "observation": "Official verification page used for the real-enrollment link and terminology. The sample verification workflow does not submit anything to VA."
+    },
+    {
+      "id": "P6",
+      "kind": "Official school-selection guidance",
+      "url": "https://www.va.gov/resources/choosing-a-gi-bill-approved-school/",
+      "observation": "Official school guidance and links to the GI Bill Comparison Tool and Yellow Ribbon school resources."
+    },
+    {
+      "id": "P7",
+      "kind": "Official education letter instructions",
+      "url": "https://www.va.gov/education/download-letters/",
+      "observation": "Education decision letters are separate from remaining-entitlement statements. The demo document is clearly labeled fictional and is not a Certificate of Eligibility."
+    }
+  ],
+  "themes": [
+    {
+      "theme": "Did my document arrive?",
+      "sources": [
+        "R1",
+        "R3",
+        "W2"
+      ],
+      "design_inference": "Keep receipt and review states separate, identify the person and reference, and make receipts downloadable. Flag a repeated filename for review without treating filename equality as proof of identical contents.",
+      "implementation": [
+        "components/SubmissionReceipt.tsx",
+        "components/AudienceHome.tsx",
+        "app/page.tsx"
+      ]
+    },
+    {
+      "theme": "What does this status mean, and who needs to act?",
+      "sources": [
+        "R4",
+        "R3"
+      ],
+      "design_inference": "Explain current stage, last status update, next action, and what the case is waiting on. Do not invent a decision date or promise shorter processing. Correct the veteran card\u2019s inconsistent evidence-stage copy.",
+      "implementation": [
+        "components/AudienceHome.tsx",
+        "components/Updates.tsx",
+        "app/page.tsx"
+      ]
+    },
+    {
+      "theme": "School certification versus education-benefit application",
+      "sources": [
+        "R2",
+        "P2"
+      ],
+      "design_inference": "Show term dates and a distinct certification tracker. Receiving a certification must not automatically change coverage or imply approval.",
+      "implementation": [
+        "components/AudienceHome.tsx"
+      ]
+    },
+    {
+      "theme": "Representative left out of a client request",
+      "sources": [
+        "W1"
+      ],
+      "design_inference": "Show a sample shared request history, client context, and representative acknowledgment. Preserve pending-authorization restrictions. Real communication and notification preferences would require a backend.",
+      "implementation": [
+        "components/AudienceHome.tsx"
+      ]
+    },
+    {
+      "theme": "Need a person or an alternative to a confusing portal",
+      "sources": [
+        "W1",
+        "W2",
+        "P3",
+        "P4"
+      ],
+      "design_inference": "Provide visible program-specific phone support and an official Ask VA route on public and signed-in views. Avoid routing every help action back to the same service list.",
+      "implementation": [
+        "components/SupportOptions.tsx",
+        "components/PublicHome.tsx",
+        "components/AlternateLayouts.tsx",
+        "components/AudienceHome.tsx",
+        "app/page.tsx"
+      ]
+    },
+    {
+      "theme": "Which document should I download?",
+      "sources": [
+        "P1"
+      ],
+      "design_inference": "Use filenames, person names, case references, purpose, and explicit receipt-versus-letter labels. Sample receipts do not establish official eligibility or claims acceptance.",
+      "implementation": [
+        "components/SubmissionReceipt.tsx",
+        "components/AudienceHome.tsx",
+        "app/page.tsx"
+      ]
+    },
+    {
+      "theme": "Education benefits missing from the veteran overview",
+      "sources": [
+        "R5",
+        "R6",
+        "P5",
+        "P6",
+        "P7"
+      ],
+      "design_inference": "Give education a dedicated section with sample entitlement, separate monthly verification and school certification, education-specific payments and letters, school-planning links, and a GI Bill support number. Do not convert remaining months into a guaranteed course or semester count.",
+      "implementation": [
+        "components/EducationBenefits.tsx",
+        "components/AlternateLayouts.tsx",
+        "lib/mock-data.ts",
+        "app/page.tsx"
+      ]
+    }
+  ]
+}
