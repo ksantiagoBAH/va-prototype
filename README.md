@@ -34,3 +34,5 @@ Research sources and the complaint-to-design mapping are in `design/research/com
 ## Veteran education section
 
 The veteran dashboard includes a dedicated GI Bill section with fictional remaining entitlement, monthly enrollment verification, separate education-payment details, and an education decision-letter download. School resources link to VA’s GI Bill Comparison Tool, Yellow Ribbon school finder, school-selection guidance, education applications, and VR&E information. Verification changes the sample status only; it does not contact VA or trigger a payment.
+
+The dependent’s CHAMPVA coverage card, navigation item, and quick action open the standalone CHAMPVA dashboard. It uses Sofia’s own claims and member ID and returns to the dependent homepage. The office-visit document status is shared between that dashboard and the homepage. Adding other beneficiaries remains in the veteran’s family dashboard.
